@@ -59,6 +59,21 @@ public class PlayerAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        var action = actions.DiscreteActions;
+
+        Vector3 dir = Vector3.zero;
+        Vector3 rot = Vector3.zero;
+
+        switch (action[0])
+        {
+            case 1: dir = tr.forward; break;
+            case 2: dir = -tr.forward; break;
+        }
+        switch (action[1])
+        {
+            case 1: rot = -tr.up; break;
+            case 2: rot = tr.up; break;
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
