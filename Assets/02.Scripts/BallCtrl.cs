@@ -7,6 +7,7 @@ public class BallCtrl : MonoBehaviour
 {
     public Agent[] players;
     private Rigidbody rb;
+    public int blueScore, redScore;
 
     void Start()
     {
@@ -34,6 +35,25 @@ public class BallCtrl : MonoBehaviour
             // Player 초기화
             players[0].EndEpisode();
             players[1].EndEpisode();
+
+            ++blueScore;
+        }
+
+        if (coll.collider.CompareTag("BLUE_GOAL"))
+        {
+            // BULE TEAM -1 REWARD
+            players[0].AddReward(-1.0f);
+            // RED TEAM +1 REWARD
+            players[1].AddReward(+1.0f);
+
+            // Ball 초기화
+            InitBall();
+
+            // Player 초기화
+            players[0].EndEpisode();
+            players[1].EndEpisode();
+
+            ++redScore;
         }
     }
 
