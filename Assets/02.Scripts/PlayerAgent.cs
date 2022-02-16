@@ -95,7 +95,7 @@ public class PlayerAgent : Agent
 
         // Branch 1
         if (Input.GetKey(KeyCode.A)) actions[1] = 1;
-        if (Input.GetKey(KeyCode.D)) actions[1] = 1;
+        if (Input.GetKey(KeyCode.D)) actions[1] = 2;
     }
 
 }
