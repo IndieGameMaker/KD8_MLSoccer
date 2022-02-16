@@ -98,4 +98,14 @@ public class PlayerAgent : Agent
         if (Input.GetKey(KeyCode.D)) actions[1] = 2;
     }
 
+    void OnCollisionEnter(Collision coll)
+    {
+        if (coll.collider.CompareTag("BALL"))
+        {
+            // KICK 방향을 계산
+            Vector3 kickDir = coll.GetContact(0).point - tr.position;
+            coll.gameObject.GetComponent<Rigidbody>().AddForce(kickDir.normalized * 800.0f);
+        }
+    }
+
 }
