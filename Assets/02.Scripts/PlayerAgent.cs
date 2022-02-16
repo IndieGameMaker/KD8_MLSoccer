@@ -102,6 +102,9 @@ public class PlayerAgent : Agent
     {
         if (coll.collider.CompareTag("BALL"))
         {
+            // 볼터치시 + 리워드
+            AddReward(0.2f);
+
             // KICK 방향을 계산
             Vector3 kickDir = coll.GetContact(0).point - tr.position;
             coll.gameObject.GetComponent<Rigidbody>().AddForce(kickDir.normalized * 800.0f);
