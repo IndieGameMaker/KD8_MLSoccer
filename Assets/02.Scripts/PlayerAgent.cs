@@ -74,6 +74,9 @@ public class PlayerAgent : Agent
             case 1: rot = -tr.up; break;
             case 2: rot = tr.up; break;
         }
+
+        tr.Rotate(rot, Time.fixedDeltaTime * 100.0f);
+        rb.AddForce(dir * 1.0f, ForceMode.VelocityChange);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
