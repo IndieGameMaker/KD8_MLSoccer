@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Policies;
 
 [RequireComponent(typeof(DecisionRequester))]
 public class PlayerAgent : Agent
@@ -23,6 +25,7 @@ public class PlayerAgent : Agent
 
     private Transform tr;
     private Rigidbody rb;
+    private BehaviorParameters bps;
 
     void InitPlayer()
     {
@@ -31,13 +34,35 @@ public class PlayerAgent : Agent
         // Player의 위치, 각도 변경
         tr.localPosition = (team == Team.Blue) ? bluePos : redPos;
         tr.localRotation = (team == Team.Blue) ? blueRot : redRot;
+        // Team 설정
+        bps.TeamId = (int)team;
+        // 물리엔진 초기화
+        rb.velocity = rb.angularVelocity = Vector3.zero;
     }
 
     public override void Initialize()
     {
         tr = GetComponent<Transform>(); // tr = transform;
         rb = GetComponent<Rigidbody>();
+        bps = GetComponent<BehaviorParameters>();
+
         InitPlayer();
+
+        // 최대 시도횟수
+        MaxStep = 10000;
+    }
+
+    public override void OnEpisodeBegin()
+    {
+        InitPlayer();
+    }
+
+    public override void OnActionReceived(ActionBuffers actions)
+    {
+    }
+
+    public override void Heuristic(in ActionBuffers actionsOut)
+    {
     }
 
 }
