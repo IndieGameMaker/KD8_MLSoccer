@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
+using TMPro;
 
 public class BallCtrl : MonoBehaviour
 {
     public Agent[] players;
     private Rigidbody rb;
     public int blueScore, redScore;
+
+    public TMP_Text blueTeamScore;
+    public TMP_Text redTeamScore;
 
     void Start()
     {
@@ -36,7 +40,7 @@ public class BallCtrl : MonoBehaviour
             players[0].EndEpisode();
             players[1].EndEpisode();
 
-            ++blueScore;
+            blueTeamScore.text = (++blueScore).ToString("000");
         }
 
         if (coll.collider.CompareTag("BLUE_GOAL"))
@@ -53,7 +57,7 @@ public class BallCtrl : MonoBehaviour
             players[0].EndEpisode();
             players[1].EndEpisode();
 
-            ++redScore;
+            redTeamScore.text = $"{++redScore:000}";
         }
     }
 
